@@ -30,3 +30,4 @@ test/reports/
 
 # Other
 .DS_Store
+*.html
