@@ -1,9 +1,14 @@
-package uk.ac.babraham.FastQC.FileFilters;
+package test.uk.ac.babraham.FastQC.FileFilters;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.io.File;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
 import uk.ac.babraham.FastQC.FileFilters.SequenceFileFilter;
-import java.io.File;
 
 
 public class SequenceFileFilterTest {
