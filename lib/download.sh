@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Download JUnit 5 and required dependencies into ./lib
-# Usage: ./scripts/get-junit5.sh [version]
+# Usage: ./download.sh [version]
 # Default JUnit version: 5.10.0 (platform 1.10.0)
 set -euo pipefail
 
