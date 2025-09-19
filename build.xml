@@ -34,6 +34,8 @@
     </target>
     <target name="clean">
         <delete dir="bin"/>
+        <delete dir="test/bin"/>
+        <delete dir="test/reports"/>
     </target>
     <target depends="clean" name="cleanall"/>
     <target depends="build-subprojects,build-project" name="build"/>
@@ -91,10 +93,5 @@
                 <listener type="legacy-plain" sendSysOut="true"/>
             </testclasses>
         </junitlauncher>
-    </target>
-    
-    <target name="clean-test">
-        <delete dir="test/bin"/>
-        <delete dir="test/reports"/>
     </target>
 </project>
