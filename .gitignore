@@ -17,7 +17,6 @@
 *.jar
 *.war
 *.ear
-*.zip
 *.tar.gz
 *.rar
 
@@ -30,4 +29,7 @@ test/reports/
 
 # Other
 .DS_Store
-*.html
+.idea
+
+test/**/*.html
+test/**/*.zip

@@ -1,15 +1,26 @@
-package test.Fixtures;
-import static org.junit.jupiter.api.Assertions.*;
+package test.integration.models;
 
-public class CliFixture{
+import static org.junit.jupiter.api.Assertions.fail;
 
-    // Convenience method for single parameter
+import java.nio.file.Path;
+
+import test.integration.data.TestDataConfig;
+
+public class CliWrapper {
+    public static final int DEFAULT_TIMEOUT_SECONDS = 30;
+
+    // Convenience method
     public CliResult Execute(String parameter) throws Exception {
-        return Execute(new String[] { parameter });
+        return Execute(new String[]{parameter}, null);
     }
 
-    // Main method to execute FastQC with given parameters
-    public CliResult Execute(String[] parameters) throws Exception {
+    // Convenience method
+    public CliResult Execute(String parameter, String fileName) throws Exception {
+        return Execute(new String[]{parameter}, fileName);
+    }
+
+    // Execute FastQC with given parameters
+    public CliResult Execute(String[] parameters, String fileName) throws Exception {
         // Build a classpath that matches the CLI example plus compiled classes in bin/
         String sep = java.io.File.pathSeparator;
         String cp = String.join(sep,
@@ -28,6 +39,9 @@ public class CliFixture{
         cmd.add("-cp");
         cmd.add(cp);
         cmd.add("uk.ac.babraham.FastQC.FastQCApplication");
+        if (fileName != null) {
+            cmd.add(Path.of(TestDataConfig.TEST_DATA_DIR, fileName).toString());
+        }
 
         ProcessBuilder pb = new ProcessBuilder(cmd);
         pb.redirectErrorStream(true);
@@ -36,17 +50,18 @@ public class CliFixture{
 
         Process p = pb.start();
         StringBuilder out = new StringBuilder();
-        try (java.io.BufferedReader reader = new java.io.BufferedReader(new java.io.InputStreamReader(p.getInputStream()))) {
+        try (java.io.BufferedReader reader = new java.io.BufferedReader(
+                new java.io.InputStreamReader(p.getInputStream()))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 out.append(line).append(System.lineSeparator());
             }
         }
 
-        boolean finished = p.waitFor(30, java.util.concurrent.TimeUnit.SECONDS);
+        boolean finished = p.waitFor(DEFAULT_TIMEOUT_SECONDS, java.util.concurrent.TimeUnit.SECONDS);
         if (!finished) {
             p.destroyForcibly();
-            fail("FastQC CLI did not exit within 30s. Command: " + String.join(" ", cmd));
+            fail("FastQC CLI did not exit within " + DEFAULT_TIMEOUT_SECONDS + "s. Command: " + String.join(" ", cmd));
         }
 
         var exitCode = p.exitValue();

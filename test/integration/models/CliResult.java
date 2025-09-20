@@ -1,4 +1,4 @@
-package test.Fixtures;
+package test.integration.models;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,7 +12,7 @@ public class CliResult {
     }
 
     public CliResult AssertExitCode(int expected) {
-        assertEquals(expected, exitCode, () -> "Unexpected exit code. Got:\n" + exitCode + " Expected:\n" + expected);
+        assertEquals(expected, exitCode, () -> "Unexpected exit code. Expected " + expected + " but got " + exitCode);
         return this;
     }
 

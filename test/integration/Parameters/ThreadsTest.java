@@ -1,4 +1,4 @@
-package test.integration.Parameters;
+package test.integration.parameters;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -7,13 +7,13 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import test.Fixtures.CliFixture;
+import test.integration.models.CliWrapper;
 
 public class ThreadsTest {
 
     @Test
     public void shows_error_when_0() throws Exception {
-        new CliFixture()
+        new CliWrapper()
             .Execute("fastqc.threads=0")
             .AssertExitCode(1)
             .AssertOutputContains("Number of threads must be >= 1");
@@ -21,7 +21,7 @@ public class ThreadsTest {
 
     @Test
     public void shows_error_when_negative() throws Exception {
-        new CliFixture()
+        new CliWrapper()
             .Execute("fastqc.threads=-1")
             .AssertExitCode(1)
             .AssertOutputContains("Number of threads must be >= 1");
@@ -35,7 +35,7 @@ public class ThreadsTest {
     @Test
     @Disabled
     public void shows_error_when_alpha() throws Exception {
-        new CliFixture()
+        new CliWrapper()
             .Execute("fastqc.threads=abc")
             .AssertExitCode(1)
             .AssertOutputContains("Number of threads must be >= 1");

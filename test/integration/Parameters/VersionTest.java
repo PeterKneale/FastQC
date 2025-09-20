@@ -1,19 +1,14 @@
-package test.integration.Parameters;
+package test.integration.parameters;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import test.Fixtures.CliFixture;
+import test.integration.models.CliWrapper;
 
 public class VersionTest {
 
     @Test
     public void show_version_displays_name_and_semver() throws Exception {
-        new CliFixture()
+        new CliWrapper()
                 .Execute("fastqc.show_version=true")
                 .AssertExitCodeIsZero()
                 .AssertOutputContains("FastQC v0.12.1");
