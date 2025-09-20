@@ -4,23 +4,21 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.nio.file.Path;
 
-import test.integration.data.TestDataConfig;
-
-public class CliWrapper {
+public class ExecutionHelper {
     public static final int DEFAULT_TIMEOUT_SECONDS = 30;
 
     // Convenience method
-    public CliResult Execute(String parameter) throws Exception {
+    public ExecutionResult Execute(String parameter) throws Exception {
         return Execute(new String[]{parameter}, null);
     }
 
     // Convenience method
-    public CliResult Execute(String parameter, String fileName) throws Exception {
+    public ExecutionResult Execute(String parameter, String fileName) throws Exception {
         return Execute(new String[]{parameter}, fileName);
     }
 
     // Execute FastQC with given parameters
-    public CliResult Execute(String[] parameters, String fileName) throws Exception {
+    public ExecutionResult Execute(String[] parameters, String fileName) throws Exception {
         // Build a classpath that matches the CLI example plus compiled classes in bin/
         String sep = java.io.File.pathSeparator;
         String cp = String.join(sep,
@@ -40,7 +38,7 @@ public class CliWrapper {
         cmd.add(cp);
         cmd.add("uk.ac.babraham.FastQC.FastQCApplication");
         if (fileName != null) {
-            cmd.add(Path.of(TestDataConfig.TEST_DATA_DIR, fileName).toString());
+            cmd.add(Path.of(TestScenarios.TEST_DATA_DIR, fileName).toString());
         }
 
         ProcessBuilder pb = new ProcessBuilder(cmd);
@@ -66,6 +64,6 @@ public class CliWrapper {
 
         var exitCode = p.exitValue();
         var output = out.toString();
-        return new CliResult(exitCode, output);
+        return new ExecutionResult(exitCode, output);
     }
 }

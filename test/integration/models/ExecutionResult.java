@@ -2,25 +2,25 @@ package test.integration.models;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CliResult {
+public class ExecutionResult {
     private final int exitCode;
     private final String output;
 
-    public CliResult(int exitCode, String output) {
+    public ExecutionResult(int exitCode, String output) {
         this.exitCode = exitCode;
         this.output = output;
     }
 
-    public CliResult AssertExitCode(int expected) {
+    public ExecutionResult AssertExitCode(int expected) {
         assertEquals(expected, exitCode, () -> "Unexpected exit code. Expected " + expected + " but got " + exitCode);
         return this;
     }
 
-    public CliResult AssertExitCodeIsZero() {
+    public ExecutionResult AssertExitCodeIsZero() {
         return AssertExitCode(0);
     }
 
-    public CliResult AssertOutputContains(String expected) {
+    public ExecutionResult AssertOutputContains(String expected) {
         assertTrue(output.contains(expected), () -> "Expected output to contain:\n" + expected + "\nGot:\n" + output);
         return this;
     }
