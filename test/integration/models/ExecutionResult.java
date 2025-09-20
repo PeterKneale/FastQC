@@ -1,6 +1,7 @@
 package test.integration.models;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ExecutionResult {
     private final int exitCode;
@@ -18,6 +19,10 @@ public class ExecutionResult {
 
     public ExecutionResult AssertExitCodeIsZero() {
         return AssertExitCode(0);
+    }
+
+    public ExecutionResult AssertStartedMessage(TestScenario scenario) {
+        return AssertOutputContains("Started analysis of " + scenario.FastqFile);
     }
 
     public ExecutionResult AssertOutputContains(String expected) {

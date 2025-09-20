@@ -7,18 +7,19 @@ import java.nio.file.Path;
 public class ExecutionHelper {
     public static final int DEFAULT_TIMEOUT_SECONDS = 30;
 
-    // Convenience method
+    // Convenience methods
     public ExecutionResult Execute(String parameter) throws Exception {
-        return Execute(new String[]{parameter}, null);
+        return DoExecute(new String[]{parameter}, null);
     }
-
-    // Convenience method
-    public ExecutionResult Execute(String parameter, String fileName) throws Exception {
-        return Execute(new String[]{parameter}, fileName);
+    public ExecutionResult Execute(String parameter, TestScenario scenario) throws Exception {
+        return DoExecute(new String[]{parameter}, scenario.Name);
+    }
+    public ExecutionResult Execute(String[] parameters, TestScenario scenario) throws Exception {
+        return DoExecute(parameters, scenario.FastqFile);
     }
 
     // Execute FastQC with given parameters
-    public ExecutionResult Execute(String[] parameters, String fileName) throws Exception {
+    private ExecutionResult DoExecute(String[] parameters, String fileName) throws Exception {
         // Build a classpath that matches the CLI example plus compiled classes in bin/
         String sep = java.io.File.pathSeparator;
         String cp = String.join(sep,

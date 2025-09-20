@@ -8,26 +8,27 @@ import test.integration.models.TestScenarios;
 public class ExecutionTest {
 
     @Test
-    public void files_are_generated() throws Exception {
+    public void zip_file_contains_all_files() throws Exception {
         var scenario = TestScenarios.MinimalScenario;
 
         var cli = new ExecutionHelper();
-        cli.Execute(new String[] {}, scenario.FastqFile)
-                .AssertOutputContains("Started analysis of minimal.fastq")
+        cli.Execute(new String[] {}, scenario)
+                .AssertStartedMessage(scenario)
                 .AssertOutputContains("Analysis complete for minimal.fastq")
                 .AssertExitCodeIsZero();
 
-        var zip = scenario
-            .GetZipFile();
+        // based on the name of the scenario, find the zip file.
+        var zip = scenario.GetZipFile();
         
+        // check the zip file appears to be valid and unzip it
         var folder = zip
                 .assertExists()
                 .assertSize()
-                .unzip();
-
-        var expectedFolderName = scenario.Name + "_fastqc/";
-        folder
-            .assertFilesExist();
+                .unzip()
+                .assertZipFileContent();
+        
+        // Match fastqc_data.txt against snapshot
+        folder.assertfastqc_data_matches();
 
     }
 }
