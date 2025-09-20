@@ -21,16 +21,12 @@ public class TestZipFolderModel {
     }
 
     public TestZipFolderModel assertZipFileContent() {
-        return
-        // files
-        assertFileExists("fastqc_data.txt")
+        return assertFileExists("fastqc_data.txt")
                 .assertFileExists("fastqc_report.html")
                 .assertFileExists("fastqc.fo")
-                .assertFileExists("summary.txt")
-                // folders
+                .assertFileExists("summary.txt")              
                 .assertFolderExists(ImagesFolderName)
-                .assertFolderExists(IconsFolderName)
-                // images
+                .assertFolderExists(IconsFolderName)              
                 .assertImageExists("adapter_content")
                 .assertImageExists("duplication_levels")
                 .assertImageExists("per_base_n_content")
@@ -41,7 +37,7 @@ public class TestZipFolderModel {
                 .assertImageExists("sequence_length_distribution");
     }
 
-    public TestZipFolderModel assertfastqc_data_matches() {
+    public TestZipFolderModel assertFastQcFileMatches() {
         var file = new File(folder, "fastqc_data.txt");
         try {
             var content = Files.readString(file.toPath());

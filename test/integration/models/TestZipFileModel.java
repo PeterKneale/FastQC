@@ -19,18 +19,8 @@ public class TestZipFileModel {
         this.file = file;        
     }
 
-    public TestZipFileModel assertExists() {
-        assertTrue(file.exists(), "Expected file " + file.getName() + " to exist");
-        return this;
-    }
-
-    public TestZipFileModel assertSize() {
-        assertTrue(file.length() > 0, "Expected file " + file.getName() + " to have size > 0");
-        return this;
-    }
-
     public TestZipFolderModel unzip() throws IOException {
-        var targetDir = new File(file.getParentFile(), file.getName() + "_unzipped");
+        var targetDir = new File(scenario.ZipExtractionPath);
         if (!targetDir.exists()) {
             Files.createDirectories(targetDir.toPath());
         }
@@ -55,6 +45,7 @@ public class TestZipFileModel {
             }
         }
         var innerFolder = new File(targetDir, scenario.Name + "_fastqc");
+        
         return new TestZipFolderModel(scenario, innerFolder);
     }
 }

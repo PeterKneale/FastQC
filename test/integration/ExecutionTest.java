@@ -1,34 +1,40 @@
-package test.integration.scenarios;
+package test.integration;
 
-import org.junit.jupiter.api.Test;
+import java.util.stream.Stream;
+
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import test.integration.models.ExecutionHelper;
-import test.integration.models.TestScenarios;
+import test.integration.models.TestScenario;
 
 public class ExecutionTest {
 
-    @Test
-    public void zip_file_contains_all_files() throws Exception {
-        var scenario = TestScenarios.MinimalScenario;
+        private static final String[] CommonParameters = new String[] {
+                        "fastqc.output_dir=" + TestScenario.TEST_OUT_DIR
+        };
 
-        var cli = new ExecutionHelper();
-        cli.Execute(new String[] {}, scenario)
-                .AssertStartedMessage(scenario)
-                .AssertOutputContains("Analysis complete for minimal.fastq")
-                .AssertExitCodeIsZero();
+        public static Stream<TestScenario> scenarios() {
+                return Stream.of(
+                                new TestScenario("minimal", CommonParameters),
+                                new TestScenario("complex", CommonParameters));
+        }
 
-        // based on the name of the scenario, find the zip file.
-        var zip = scenario.GetZipFile();
-        
-        // check the zip file appears to be valid and unzip it
-        var folder = zip
-                .assertExists()
-                .assertSize()
-                .unzip()
-                .assertZipFileContent();
-        
-        // Match fastqc_data.txt against snapshot
-        folder.assertfastqc_data_matches();
+        @ParameterizedTest(name = "[{index}] {0}")
+        @MethodSource("scenarios")
+        public void zip_file_contains_all_files(TestScenario scenario) throws Exception {
 
-    }
+                var result = ExecutionHelper.Execute(scenario);
+
+                result.AssertStarted()
+                                .AssertCompleted()
+                                .AssertExitCodeIsZero();
+
+                var zip = scenario.GetZipFile();
+                var folder = zip.unzip();
+
+                folder.assertZipFileContent();
+                folder.assertFastQcFileMatches();
+        }
 }

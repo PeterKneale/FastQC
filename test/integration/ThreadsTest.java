@@ -1,4 +1,4 @@
-package test.integration.parameters;
+package test.integration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -7,22 +7,23 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import test.integration.models.CliWrapper;
+import test.integration.models.ExecutionHelper;
+import test.integration.models.TestScenario;
 
 public class ThreadsTest {
 
     @Test
     public void shows_error_when_0() throws Exception {
-        new CliWrapper()
-            .Execute("fastqc.threads=0")
+        ExecutionHelper
+            .Execute(new TestScenario(null, new String[] {"fastqc.threads=0"}))
             .AssertExitCode(1)
             .AssertOutputContains("Number of threads must be >= 1");
     }
 
     @Test
     public void shows_error_when_negative() throws Exception {
-        new CliWrapper()
-            .Execute("fastqc.threads=-1")
+        ExecutionHelper
+            .Execute(new TestScenario(null, new String[] {"fastqc.threads=-1"}))
             .AssertExitCode(1)
             .AssertOutputContains("Number of threads must be >= 1");
     }
@@ -35,8 +36,8 @@ public class ThreadsTest {
     @Test
     @Disabled
     public void shows_error_when_alpha() throws Exception {
-        new CliWrapper()
-            .Execute("fastqc.threads=abc")
+        ExecutionHelper
+            .Execute(new TestScenario(null, new String[] {"fastqc.threads=abc"}))
             .AssertExitCode(1)
             .AssertOutputContains("Number of threads must be >= 1");
     }

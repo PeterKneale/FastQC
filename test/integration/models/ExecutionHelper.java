@@ -7,19 +7,7 @@ import java.nio.file.Path;
 public class ExecutionHelper {
     public static final int DEFAULT_TIMEOUT_SECONDS = 30;
 
-    // Convenience methods
-    public ExecutionResult Execute(String parameter) throws Exception {
-        return DoExecute(new String[]{parameter}, null);
-    }
-    public ExecutionResult Execute(String parameter, TestScenario scenario) throws Exception {
-        return DoExecute(new String[]{parameter}, scenario.Name);
-    }
-    public ExecutionResult Execute(String[] parameters, TestScenario scenario) throws Exception {
-        return DoExecute(parameters, scenario.FastqFile);
-    }
-
-    // Execute FastQC with given parameters
-    private ExecutionResult DoExecute(String[] parameters, String fileName) throws Exception {
+    public static ExecutionResult Execute(TestScenario scenario) throws Exception {
         // Build a classpath that matches the CLI example plus compiled classes in bin/
         String sep = java.io.File.pathSeparator;
         String cp = String.join(sep,
@@ -32,14 +20,14 @@ public class ExecutionHelper {
         java.util.List<String> cmd = new java.util.ArrayList<>();
         cmd.add("java");
         cmd.add("-Xmx250m");
-        for (String parameter : parameters) {
+        for (String parameter : scenario.Parameters) {
             cmd.add("-D" + parameter);
         }
         cmd.add("-cp");
         cmd.add(cp);
         cmd.add("uk.ac.babraham.FastQC.FastQCApplication");
-        if (fileName != null) {
-            cmd.add(Path.of(TestScenarios.TEST_DATA_DIR, fileName).toString());
+        if (scenario.FastqFilePath != null) {
+            cmd.add(scenario.FastqFilePath);
         }
 
         ProcessBuilder pb = new ProcessBuilder(cmd);
@@ -65,6 +53,6 @@ public class ExecutionHelper {
 
         var exitCode = p.exitValue();
         var output = out.toString();
-        return new ExecutionResult(exitCode, output);
+        return new ExecutionResult(scenario, exitCode, output);
     }
 }

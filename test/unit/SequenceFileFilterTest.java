@@ -1,4 +1,4 @@
-package test.uk.ac.babraham.FastQC.FileFilters;
+package test.unit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

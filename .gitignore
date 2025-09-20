@@ -33,3 +33,5 @@ test/reports/
 
 test/**/*.html
 test/**/*.zip
+test/reports/
+test/integration/output

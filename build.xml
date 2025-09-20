@@ -43,6 +43,7 @@
         <delete dir="bin"/>
         <delete dir="test/bin"/>
         <delete dir="test/reports"/>
+        <delete dir="test/integration/output"/>
     </target>
     <target depends="clean" name="cleanall"/>
     <target depends="build-subprojects,build-project" name="build"/>

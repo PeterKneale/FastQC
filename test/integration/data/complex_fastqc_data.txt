@@ -1,14 +1,14 @@
 ##FastQC	0.12.1
 >>Basic Statistics	pass
 #Measure	Value
-Filename	minimal.fastq
+Filename	complex.fastq
 File type	Conventional base calls
 Encoding	Illumina 1.5
-Total Sequences	1
-Total Bases	16 bp
+Total Sequences	5
+Total Bases	80 bp
 Sequences flagged as poor quality	0
 Sequence length	16
-%GC	0
+%GC	50
 >>END_MODULE
 >>Per base sequence quality	pass
 #Base	Mean	Median	Lower Quartile	Upper Quartile	10th Percentile	90th Percentile
@@ -31,33 +31,33 @@ Sequence length	16
 >>END_MODULE
 >>Per sequence quality scores	fail
 #Quality	Count
-9	1.0
+9	5.0
 >>END_MODULE
 >>Per base sequence content	fail
 #Base	G	A	T	C
 1	0.0	100.0	0.0	0.0
-2	0.0	100.0	0.0	0.0
-3	0.0	100.0	0.0	0.0
-4	0.0	100.0	0.0	0.0
+2	0.0	0.0	0.0	100.0
+3	100.0	0.0	0.0	0.0
+4	0.0	0.0	100.0	0.0
 5	0.0	100.0	0.0	0.0
-6	0.0	100.0	0.0	0.0
-7	0.0	100.0	0.0	0.0
-8	0.0	100.0	0.0	0.0
+6	0.0	0.0	0.0	100.0
+7	100.0	0.0	0.0	0.0
+8	0.0	0.0	100.0	0.0
 9	0.0	100.0	0.0	0.0
-10	0.0	100.0	0.0	0.0
-11	0.0	100.0	0.0	0.0
-12	0.0	100.0	0.0	0.0
+10	0.0	0.0	0.0	100.0
+11	100.0	0.0	0.0	0.0
+12	0.0	0.0	100.0	0.0
 13	0.0	100.0	0.0	0.0
-14	0.0	100.0	0.0	0.0
-15	0.0	100.0	0.0	0.0
-16	0.0	100.0	0.0	0.0
+14	0.0	0.0	0.0	100.0
+15	100.0	0.0	0.0	0.0
+16	0.0	0.0	100.0	0.0
 >>END_MODULE
->>Per sequence GC content	fail
+>>Per sequence GC content	warn
 #GC Content	Count
-0	1.0
-1	1.0
-2	1.0
-3	0.5
+0	0.0
+1	0.0
+2	0.0
+3	0.0
 4	0.0
 5	0.0
 6	0.0
@@ -101,13 +101,13 @@ Sequence length	16
 44	0.0
 45	0.0
 46	0.0
-47	0.0
-48	0.0
-49	0.0
-50	0.0
-51	0.0
-52	0.0
-53	0.0
+47	2.5
+48	5.0
+49	5.0
+50	5.0
+51	5.0
+52	5.0
+53	2.5
 54	0.0
 55	0.0
 56	0.0
@@ -177,16 +177,16 @@ Sequence length	16
 >>END_MODULE
 >>Sequence Length Distribution	pass
 #Length	Count
-16	1.0
+16	5.0
 >>END_MODULE
->>Sequence Duplication Levels	pass
-#Total Deduplicated Percentage	100.0
+>>Sequence Duplication Levels	fail
+#Total Deduplicated Percentage	20.0
 #Duplication Level	Percentage of total
-1	100.0
+1	0.0
 2	0.0
 3	0.0
 4	0.0
-5	0.0
+5	100.0
 6	0.0
 7	0.0
 8	0.0
@@ -201,13 +201,13 @@ Sequence length	16
 >>END_MODULE
 >>Overrepresented sequences	fail
 #Sequence	Count	Percentage	Possible Source
-AAAAAAAAAAAAAAAA	1	100.0	No Hit
+ACGTACGTACGTACGT	5	100.0	No Hit
 >>END_MODULE
->>Adapter Content	fail
+>>Adapter Content	pass
 #Position	Illumina Universal Adapter	Illumina Small RNA 3' Adapter	Illumina Small RNA 5' Adapter	Nextera Transposase Sequence	PolyA	PolyG
-1	0.0	0.0	0.0	0.0	100.0	0.0
-2	0.0	0.0	0.0	0.0	100.0	0.0
-3	0.0	0.0	0.0	0.0	100.0	0.0
-4	0.0	0.0	0.0	0.0	100.0	0.0
-5	0.0	0.0	0.0	0.0	100.0	0.0
+1	0.0	0.0	0.0	0.0	0.0	0.0
+2	0.0	0.0	0.0	0.0	0.0	0.0
+3	0.0	0.0	0.0	0.0	0.0	0.0
+4	0.0	0.0	0.0	0.0	0.0	0.0
+5	0.0	0.0	0.0	0.0	0.0	0.0
 >>END_MODULE
