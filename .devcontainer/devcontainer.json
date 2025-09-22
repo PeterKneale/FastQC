@@ -10,5 +10,15 @@
 			"installAnt": "true"
 		}
 	},
-	"postCreateCommand": "sudo apt-get update && sudo apt-get install -y libfreetype6 fonts-liberation fontconfig && java -version && ant -version"
+	"containerEnv": {
+		"PLAYWRIGHT_BROWSERS_PATH": "/home/vscode/.cache/ms-playwright"
+	},
+	"postCreateCommand": "sudo apt-get update && sudo apt-get install -y libfreetype6 fonts-liberation fontconfig && java -version && ant -version && npx --yes playwright@latest install --with-deps",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"redhat.vscode-xml"
+			]
+		}
+	}
 }

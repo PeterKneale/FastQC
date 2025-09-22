@@ -24,7 +24,6 @@ public class FileContentsTest {
     @MethodSource("test.integration.cli.CliScenario#scenarios")
     public void verify_data(String name) throws Exception {
         var content = ExecuteAndExtractFileContent(name, "fastqc_data.txt");
-
         var options = new Options()
             .forFile()
             .withName("FileContentsTest_" + name + "_fastqc_data", " txt"); 
@@ -36,7 +35,6 @@ public class FileContentsTest {
     public void verify_html(String name) throws Exception {
         var content = ExecuteAndExtractFileContent(name, "fastqc_report.html");
         content = HtmlContentHelpers.normalizeHtml(content);
-        
         var options = new Options()
             .withScrubber(HtmlContentHelpers::scrubDates)
             .forFile()

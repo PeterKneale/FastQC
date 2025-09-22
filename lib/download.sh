@@ -36,5 +36,16 @@ curl -L -o "approvaltests-util-25.4.3.jar" "https://repo1.maven.org/maven2/com/a
 # For html normalisation
 curl -L -o "jsoup-1.18.1.jar" "https://repo1.maven.org/maven2/org/jsoup/jsoup/1.18.1/jsoup-1.18.1.jar"
 
+# Playwright for Java
+PLAYWRIGHT_VERSION="1.47.0"
+curl -L -o playwright-$PLAYWRIGHT_VERSION.jar       https://repo1.maven.org/maven2/com/microsoft/playwright/playwright/$PLAYWRIGHT_VERSION/playwright-$PLAYWRIGHT_VERSION.jar
+curl -L -o driver-bundle-$PLAYWRIGHT_VERSION.jar    https://repo1.maven.org/maven2/com/microsoft/playwright/driver-bundle/$PLAYWRIGHT_VERSION/driver-bundle-$PLAYWRIGHT_VERSION.jar
+curl -L -o driver-$PLAYWRIGHT_VERSION.jar           https://repo1.maven.org/maven2/com/microsoft/playwright/driver/$PLAYWRIGHT_VERSION/driver-$PLAYWRIGHT_VERSION.jar
+
+# 👉 Add transitive deps Playwright expects:
+curl -L -o gson-2.10.1.jar     https://repo1.maven.org/maven2/com/google/code/gson/gson/2.10.1/gson-2.10.1.jar
+curl -L -o okhttp-4.12.0.jar   https://repo1.maven.org/maven2/com/squareup/okhttp3/okhttp/4.12.0/okhttp-4.12.0.jar
+curl -L -o okio-3.9.0.jar      https://repo1.maven.org/maven2/com/squareup/okio/okio/3.9.0/okio-3.9.0.jar
+
 echo "Done. Files in $LIB_DIR:"
 ls -1 *.jar | sed 's/^/  - /'

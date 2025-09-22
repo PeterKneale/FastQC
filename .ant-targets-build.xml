@@ -1,0 +1,14 @@
+FastQCApplication
+build
+build-eclipse-compiler
+build-project
+build-refprojects
+build-subprojects
+clean
+cleanall
+compile-tests
+init
+init-eclipse-compiler
+init-test
+playwright-install
+test
